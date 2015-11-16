@@ -8,11 +8,11 @@ $app = new \Slim\Slim();
 
 function getConnection() {
     $DBHost = "YOUR.ORACLE.SERVER"; //Database Host URL or IP Address
-	$DBOraclePort = "1525"; //DB Oracle Port
-	$DBName = "OracleSID"; //if MySQL use Database Name, if Oracle use Oracle System ID (SID)
-	//Connection String
-	//$connectionDB = "mysql:host={$DBHost};dbname={$DBName}";
-	$connectionDB = "oci:dbname=(DESCRIPTION=(ADDRESS=(HOST={$DBHost})(PROTOCOL=tcp)(PORT={$DBOraclePort}))(CONNECT_DATA=(SID={$DBName})))";
+    $DBOraclePort = "1525"; //DB Oracle Port
+    $DBName = "OracleSID"; //if MySQL use Database Name, if Oracle use Oracle System ID (SID)
+    //Connection String
+    //$connectionDB = "mysql:host={$DBHost};dbname={$DBName}";
+    $connectionDB = "oci:dbname=(DESCRIPTION=(ADDRESS=(HOST={$DBHost})(PROTOCOL=tcp)(PORT={$DBOraclePort}))(CONNECT_DATA=(SID={$DBName})))";
     $DBUser = "username";
     $DBPswd = "password";
     $dbh = new PDO($connectionDB, $DBUser, $DBPswd);
@@ -41,9 +41,6 @@ $app->post($apiURL . 'users', function() {
 	}
 );
 
-/**
- * Maklumat Kursus
- */
 $app->get($apiURL . 'users/:id', function($id) {
 		$sql = "SELECT * FROM USERS WHERE USER_ID = :idUser";
 		$jsonArray = array();
@@ -62,9 +59,5 @@ $app->get($apiURL . 'users/:id', function($id) {
 		}
 	}
 );
-
-$app->notFound(function () {
-    echo file_get_contents('../404.html');
-});
 
 $app->run();
